@@ -1,5 +1,5 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"									Dataset									   "
+"				Dataset 		                       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """
 Hwang, S., Park, J., Kim, N., Choi, Y., & So Kweon, I. (2015). Multispectral
@@ -8,7 +8,7 @@ conference on computer vision and pattern recognition (pp. 1037-1045).
 """
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"									Library									   "
+"				Library					       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 import os
 from numpy import asarray
@@ -42,12 +42,12 @@ import xlsxwriter
 from time import time
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"							Discriminator network							   "
-" 5. LeakyReLU = good(in both G and D), 								       "
-" 9. (optimizer) SGD = for discriminator									   "
+"			  Discriminator network				       "
+" 5. LeakyReLU = good(in both G and D), 			               "
+" 9. (optimizer) SGD = for discriminator  				       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ################################################################################
-# function name : define_discriminator										   #
+# function name : define_discriminator					       #
 ################################################################################
 # define the discriminator model
 def define_discriminator(image_shape):
@@ -94,15 +94,15 @@ def define_discriminator(image_shape):
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"							Generator network	     						   "
-" 1. Tanh as the last layer of the generator output(checked)				   "
-" 5. LeakyReLU = good(in both G and D), 								       "
+"			     Generator network	     			       "
+" 1. Tanh as the last layer of the generator output(checked)		       "
+" 5. LeakyReLU = good(in both G and D), 				       "
 "    Downsampling use = average Pooling, Conv2d + stride                       "
-"    Upsampling use = Pixelshuffle, ConvTranspose2d + stride				   "
-" 9. (optimizer) Adam = for generator										   "
+"    Upsampling use = Pixelshuffle, ConvTranspose2d + stride	  	       "
+" 9. (optimizer) Adam = for generator	  				       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ################################################################################
-# function name : define_encoder_block										   #
+# function name : define_encoder_block			  		       #
 ################################################################################
 # define an encoder block
 def define_encoder_block(layer_in, n_filters, batchnorm=True):
@@ -118,7 +118,7 @@ def define_encoder_block(layer_in, n_filters, batchnorm=True):
 	return g
 
 ################################################################################
-# function name : decoder_block		      									   #
+# function name : decoder_block		      				       #
 ################################################################################
 # define a decoder block
 def decoder_block(layer_in, skip_in, n_filters, dropout=True):
@@ -138,7 +138,7 @@ def decoder_block(layer_in, skip_in, n_filters, dropout=True):
 	return g
 
 ################################################################################
-# function name : define_generator	      									   #
+# function name : define_generator	      				       #
 ################################################################################
 # define the standalone generator model
 def define_generator(image_shape=(256,256,3)):
@@ -177,7 +177,7 @@ def define_generator(image_shape=(256,256,3)):
 	return model
 
 ################################################################################
-# function name : define_gan         										   #
+# function name : define_gan         					       #
 ################################################################################
 # define the combined generator and discriminator model, for updating the generator
 def define_gan(g_model, d_model, image_shape):
@@ -206,7 +206,7 @@ def define_gan(g_model, d_model, image_shape):
 	return model
 
 ################################################################################
-# function name : generate_real_samples										   #
+# function name : generate_real_samples					       #
 ################################################################################
 # select a batch of random samples, returns images and target
 def generate_real_samples(dataset, n_samples, patch_shape, src_name, preRGB_name, nth_img, testNum, frame_check):
@@ -241,7 +241,7 @@ def generate_real_samples(dataset, n_samples, patch_shape, src_name, preRGB_name
 		return [X1, X2], y
 
 ################################################################################
-# function name : generate_fake_samples										   #
+# function name : generate_fake_samples					       #
 ################################################################################
 # generate a batch of images, returns images and targets
 def generate_fake_samples(g_model, samples_src, sample_tar, patch_shape):
@@ -256,7 +256,7 @@ def generate_fake_samples(g_model, samples_src, sample_tar, patch_shape):
 	return X, y
 
 ################################################################################
-# function name : generate_fake_samples										   #
+# function name : generate_fake_samples					       #
 ################################################################################
 def generate_current_RGB(dataset, n_samples, patch_shape, tar_name, nth_image, frame_check):
 	trainA, trainB, trainC = dataset
@@ -274,10 +274,10 @@ def generate_current_RGB(dataset, n_samples, patch_shape, tar_name, nth_image, f
 	return X2, y
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"							Train & Result									   "
+"			       Train & Result	  			       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ################################################################################
-# function name : summarize_performance										   #
+# function name : summarize_performance					       #
 ################################################################################
 # generate samples and save as a plot and save the model
 def summarize_performance(step, g_model, h5_file, dataset, src, tar, iloop, testCheck, frame_check, n_samples=3):
@@ -320,7 +320,7 @@ def summarize_performance(step, g_model, h5_file, dataset, src, tar, iloop, test
 
 
 ################################################################################
-# function name : train														   #
+# function name : train							       #
 ################################################################################
 # train pix2pix models
 def train(d_model, g_model, gan_model, dataset, src_filename, tar_filename, preRGB_filename,h5file, n_epochs=200, n_batch=1):
@@ -406,11 +406,11 @@ def train(d_model, g_model, gan_model, dataset, src_filename, tar_filename, preR
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"								record loss									   "
+"				record loss				       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ################################################################################
-# function name : draw_graph												   #
-# Function path : 1. load_real_samples 	  --> extract data					   #
+# function name : draw_graph						       #
+# Function path : 1. load_real_samples 	  --> extract data		       #
 ################################################################################
 def draw_graph(x_d1,y_d1,x_d2,y_d2,x_g,y_g):
 	#discriminator loss(for real sample)
@@ -428,8 +428,8 @@ def draw_graph(x_d1,y_d1,x_d2,y_d2,x_g,y_g):
 
 
 ################################################################################
-# function name : write_loss_log										 	   #
-# Function path : 1. load_real_samples 	  --> extract data					   #
+# function name : write_loss_log					       #
+# Function path : 1. load_real_samples 	  --> extract data		       #
 ################################################################################
 def write_loss_log(x_d1_step,y_d1_loss,x_d2_step,y_d2_loss,x_g_step,y_g_loss):
 	#declare excel file
@@ -454,10 +454,10 @@ def write_loss_log(x_d1_step,y_d1_loss,x_d2_step,y_d2_loss,x_g_step,y_g_loss):
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"								Image Load   								   "
+"				Image Load   				       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ################################################################################
-# function name : load_image_from_folder	       						 	   #
+# function name : load_image_from_folder	       			       #
 ################################################################################
 def load_image_from_folder(file_RGB, RGB_counter, file_Thermal, Thermal_counter, file_RGB_pre, RGB_pre_counter ,size=(256,256)):
     img_RGB, img_Thermal, img_preRGB, RGB_name, Thermal_name, preRGB_name = list(), list(), list(), list(), list(), list()
@@ -506,7 +506,7 @@ def load_image_from_folder(file_RGB, RGB_counter, file_Thermal, Thermal_counter,
     return [asarray(img_Thermal), asarray(img_RGB), asarray(img_preRGB)], Thermal_name, RGB_name, preRGB_name
 
 ################################################################################
-# function name : sequential_fileload									 	   #
+# function name : sequential_fileload					       #
 ################################################################################
 def sequential_fileload(filepath_tar, start, end):
     #declare save space
@@ -524,7 +524,7 @@ def sequential_fileload(filepath_tar, start, end):
     return image_folder, counter_bundle
 
 ################################################################################
-# function name : name_shunt    										 	   #
+# function name : name_shunt    					       #
 ################################################################################
 def name_shunt(numbering):
     #0~9
@@ -549,7 +549,7 @@ def name_shunt(numbering):
     return temp_zero
 
 ################################################################################
-# function name : counter_number_of_file								 	   #
+# function name : counter_number_of_file				       #
 ################################################################################
 def cut_string_filepath(filename):
 	end_point = len(filename)
@@ -559,7 +559,7 @@ def cut_string_filepath(filename):
 	return cut_name
 
 ################################################################################
-# function name : counter_number_of_file								 	   #
+# function name : counter_number_of_file				       #
 ################################################################################
 def load_real_samples(packed_src,packed_tar,packed_nRGB):
     # unpack arrays
@@ -573,12 +573,12 @@ def load_real_samples(packed_src,packed_tar,packed_nRGB):
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"								setting part								   "
+"				setting part				       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 #file path you want
-filepath_RGB="/content/drive/My Drive/PT/resize1700/RGB/"						#256 by 256 pixel size RGB image file path
-filepath_Thermal="/content/drive/My Drive/PT/resize1700/Thermal/"				#256 by 256 pixel size Thermal image file path
-filepath_nRGB256 = "/content/drive/My Drive/PT/resize1700/nRGB256/"				#32 by 32 pixel size RGB image file path
+filepath_RGB="/content/drive/My Drive/PT/resize1700/RGB/"			#256 by 256 pixel size RGB image file path
+filepath_Thermal="/content/drive/My Drive/PT/resize1700/Thermal/"		#256 by 256 pixel size Thermal image file path
+filepath_nRGB256 = "/content/drive/My Drive/PT/resize1700/nRGB256/"		#32 by 32 pixel size RGB image file path
 
 #file start and end point
 #setting point
@@ -587,7 +587,7 @@ data_s = 0
 data_e = 1738
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"								Image Load									   "
+"				Image Load				       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 #call function
 bundle_RGB, counter_RGB = sequential_fileload(filepath_RGB, data_s, data_e)
@@ -608,7 +608,7 @@ image_shape = dataset[0].shape[1:]
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"								Call Network								   "
+"				Call Network				       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 # define the models
 d_model = define_discriminator(image_shape)
@@ -618,7 +618,7 @@ g_model = define_generator(image_shape)
 gan_model = define_gan(g_model, d_model, image_shape)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"								setting part								   "
+"				setting part				       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 #first train model
 train(d_model, g_model, gan_model, dataset, src_name, tar_name, preRGB_name, h5_filename)
