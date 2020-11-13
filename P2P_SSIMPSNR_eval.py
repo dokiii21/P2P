@@ -1,5 +1,5 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"									Library									   "
+"				Library					       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 from os import listdir
 from skimage.measure import compare_ssim
@@ -8,7 +8,7 @@ import xlsxwriter
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"									PSNR & SSIM								   "
+"				PSNR & SSIM				       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 def evalutation_method(Generated_path, Generated_name, Real_path, Real_name):
     Gen_len = len(Generated_path)
@@ -44,10 +44,10 @@ def evalutation_method(Generated_path, Generated_name, Real_path, Real_name):
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"							    file load									   "
+"				file load				       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ################################################################################
-# function name : sequential_fileload									 	   #
+# function name : sequential_fileload					       #
 ################################################################################
 def sequential_fileload(filepath):
     img_list, img_name = list(), list()
@@ -62,8 +62,8 @@ def sequential_fileload(filepath):
 
 
 ################################################################################
-# function name : write_loss_log										 	   #
-# Function path : 1. load_real_samples 	  --> extract data					   #
+# function name : write_loss_log					       #
+# Function path : 1. load_real_samples 	  --> extract data		       #
 ################################################################################
 def write_loss_log(filename,ssim,psnr,Numfile):
 	#declare excel file
@@ -86,7 +86,7 @@ def write_loss_log(filename,ssim,psnr,Numfile):
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"									Main									   "
+"				Main					       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 filepath_Gen_p2p = '/home/park/Desktop/NumberP/PT_temp/Testcode/bundleOftest/test/V000/resized/32pixel/3frame32/RGB/eval_RGB/'
 filepath_Gen_pix2 = '/home/park/Desktop/NumberP/PT_temp/Testcode/bundleOftest/test/V001/unresized/pix2pix/generate/merge/'
